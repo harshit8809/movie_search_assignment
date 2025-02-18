@@ -14,6 +14,7 @@ const NotFound = ({data}: any) => {
 
 export default NotFound
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
