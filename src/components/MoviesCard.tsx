@@ -4,9 +4,11 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { removeFromShortlist } from '../redux/movieSlice';
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useNavigation } from '@react-navigation/native';
 
 const MoviesCard = ({ data, onPress, shortlist }: any) => {
     const dispatch = useDispatch();
+    const navigation = useNavigation()
 
     const handleRemoveFromShortlist = () => {
         Alert.alert(
@@ -29,6 +31,8 @@ const MoviesCard = ({ data, onPress, shortlist }: any) => {
 
     return (
         <View style={styles.movieContainer}>
+        <TouchableOpacity onPress={()=>navigation.navigate("MoviesDetails", data)}>
+            
             <Image
                 source={{ uri: data.Poster }}
                 style={styles.posterImage}
@@ -49,6 +53,7 @@ const MoviesCard = ({ data, onPress, shortlist }: any) => {
                 </View>
             </View>
             {!shortlist ? <Button title="Add to Shortlist" onPress={onPress} /> : null}
+        </TouchableOpacity>
         </View>
     );
 };

@@ -21,10 +21,11 @@ const MovieListScreen = () => {
     });
 
     const handleSearch = () => {
-        if (!movieTitle || !year) {
+        if (!movieTitle) {
             Alert.alert('Error', 'Please enter both movie title and year.');
             return;
         }
+        
         refetch();
     };
 
