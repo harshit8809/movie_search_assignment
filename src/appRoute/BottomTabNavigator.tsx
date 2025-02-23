@@ -10,8 +10,24 @@ import MoviesStackNavigator from './StackNav';
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator: React.FC = () => {
+
+    const linking: LinkingOptions<ReactNavigation.RootParamList> = {
+        prefixes: ['myapp://', 'https://myapp.com'],
+        config: {
+          screens: {
+            Movies: {
+              screens: {
+                MovieList: 'movies',
+                MoviesDetails: 'movies/:id',
+              },
+            },
+            Shortlist: 'shortlist',
+          },
+        },
+      };
+
     return (
-        <NavigationContainer>
+        <NavigationContainer linking={linking}>
             <Tab.Navigator
                 screenOptions={({ route }) => ({
                     tabBarIcon: ({ color, size }) => {

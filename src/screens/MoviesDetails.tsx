@@ -1,57 +1,9 @@
-// // @ts-nocheck
-
-// import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
-// import React from 'react'
-// import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
-
-// const MoviesDetails = ({ route }: any) => {
-//     console.log("PramasData->", route.params)
-//     const data = route.params || {}
-//     return (
-//         <ScrollView style={{flex: 1}}>
-//         <View style={styles.container}>
-//             <View style={{}}>
-//                 <Image
-//                     source={{ uri: data?.Poster || 'https://via.placeholder.com/300' }}
-//                     style={styles.posterImage}
-//                     resizeMode="stretch"
-//                 />
-//                 <View style={{ position: "absolute", bottom: 10, left: 10, flexDirection: "row", justifyContent: "space-between", width: "95%", alignItems: "center" }}>
-//                     <View>
-//                         <Text style={{ fontSize: 20, color: "#FFF", fontWeight: "500" }}>{data?.Title} ({data?.Year})</Text>
-//                     </View>
-//                     <View style={{ flexDirection: "row", alignItems: "center" }}>
-//                         <FontAwesome name="imdb" color="yellow" size={30} />
-//                         <Text style={{ fontSize: 16, color: "#FFF", fontWeight: "500", marginLeft: 10 }}>{data?.imdbRating}/10</Text>
-//                     </View>
-
-//                 </View>
-//             </View>
-//         </View>
-//      </ScrollView>
-//     )
-// }
-
-// export default MoviesDetails
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         padding: 10,
-//     },
-//     posterImage: {
-//         flex: 1,
-//         height: "70%",
-//         width: '100%',
-//         borderRadius: 10,
-//     },
-// })
-
 // @ts-nocheck
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { API_URL } from '../api/movieApi';
+import axios from 'axios';
 
 interface MovieDetailsProps {
     route: {
@@ -66,10 +18,12 @@ interface MovieDetailsProps {
 
 const MoviesDetails: React.FC<MovieDetailsProps> = ({ route }) => {
     const data = route.params || {};
+    console.log("route ->", route)
 
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
+                <Text>Moive ID :- {data?.id}</Text>
                 <View style={styles.imageContainer}>
                     <Image
                         source={{ uri: data?.Poster || 'https://via.placeholder.com/300' }}

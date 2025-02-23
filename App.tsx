@@ -1,35 +1,34 @@
-
+// @ts-nocheck
 import { Provider } from 'react-redux';
 import BottomTabNavigator from './src/appRoute/BottomTabNavigator';
 import store from './src/redux/store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { LinkingOptions } from '@react-navigation/native';
+import { useEffect } from 'react';
+import { Linking } from 'react-native';
 
 const App: React.FC = () => {
   const queryClient = new QueryClient();
 
-  const linking: LinkingOptions<ReactNavigation.RootParamList> = {
-    prefixes: ['myapp://', 'https://myapp.com'],
-    config: {
-      screens: {
-        Movies: {
-          screens: {
-            MovieList: 'movies',
-            MoviesDetails: 'movies/:id',
-          },
-        },
-        Shortlist: 'shortlist',
-      },
-    },
-  };
+  useEffect(() => {
+    const handleDeepLink = (event: { url: string }) => {
+      console.log('Deep link received:', event.url);
+    };
+    Linking.addEventListener('url', handleDeepLink);
+    
+    return () => {
+      Linking.removeEventListener('url', handleDeepLink);
+    };
+  }, []);
 
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <BottomTabNavigator />
+          <BottomTabNavigator />
       </QueryClientProvider>
     </Provider>
   );
 };
 
 export default App;
+
+
